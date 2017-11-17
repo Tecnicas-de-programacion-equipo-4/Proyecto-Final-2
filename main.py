@@ -8,12 +8,16 @@ class MainApp():
         for port in list_ports.comports(include_links=True):
             print(port.device, port.name, port.description)
 
-        self.__master = MainView(tap_handler = self.__toggle_did_change)
+        self.__master = MainView(tap_handler = self.__toggle_did_change, tap_toogle_handler = self.__handler_event)
         self.__arduino = serial.Serial('/dev/cu.usbmodem1431', 115200)
         self.__master.protocol("WM_DELETE_WINDOW", self.__on_closing)
 
     def run(self):
         self.__master.mainloop()
+
+    def __handler_event(self, room):
+        self.__room = room
+        print(self.__room)
 
     def __toggle_did_change(self, state):
         value = str(1 if state else 0).encode('ascii')
