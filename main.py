@@ -9,7 +9,7 @@ class MainApp():
             print(port.device, port.name, port.description)
 
         self.__master = MainView(tap_handler = self.__toggle_did_change)
-        self.__arduino = serial.Serial('/dev/tty.usbmodem1431', 115200)
+        self.__arduino = serial.Serial('/dev/cu.usbmodem1431', 115200)
         self.__master.protocol("WM_DELETE_WINDOW", self.__on_closing)
 
     def run(self):

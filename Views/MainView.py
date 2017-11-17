@@ -4,7 +4,7 @@ from Views.ToggleButton import ToggleButton
 class MainView(Tk):
     class Constants:
         title = "Toggle Led"
-        heigth = 300
+        heigth = 600
         width = 300
         center = N + S + E + W
 
