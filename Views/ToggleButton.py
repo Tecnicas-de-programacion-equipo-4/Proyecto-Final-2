@@ -3,8 +3,8 @@ from tkinter import Label, PhotoImage
 class ToggleButton(Label):
 
     class Constants:
-        on_file = "Assets/on.ppm"
-        off_file = "Assets/off.ppm"
+        on_file = "Assets/ON.ppm"
+        off_file = "Assets/OFF.ppm"
         event = "<Button-1>"
 
     def __init__(self, master, tap_toggle_handler = None):
