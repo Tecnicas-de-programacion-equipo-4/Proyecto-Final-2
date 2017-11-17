@@ -13,7 +13,7 @@ class ToggleButton(Label):
         self.__state = False
         self.__on_image = PhotoImage(file = self.Constants.on_file)
         self.__off_image = PhotoImage(file = self.Constants.off_file)
-        self.__set_image(self.__on_image)
+        self.__set_image(self.__off_image)
         self.bind(self.Constants.event, self.__toggle)
 
     def __toggle(self, event):
