@@ -3,7 +3,7 @@ import json
 
 class TemperatureManager():
     class Constants:
-        base_url = "http://api.openweathermap.org/data/2.5/weather?q=Mexico,MX&APPID=3da430edb8cb3e68ab0ad0f3719f41d8"
+        base_url = "http://api.openweathermap.org/data/2.5/weather?q=Mexico,MX&APPID={APIKEY}"
         kelvin_temperature = 273.15
     @classmethod
     def get_temperature(cls):
