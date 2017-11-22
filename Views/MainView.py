@@ -12,7 +12,7 @@ class MainView(Tk):
         def size(cls):
             return "{}x{}".format(cls.width, cls.heigth)
 
-    def __init__(self, tap_handler = None, tap_toogle_handler = None):
+    def __init__(self, tap_toogle_handler = None, tap_handler = None):
         super().__init__()
         self.__tap_toogle_handler = tap_toogle_handler
         self.title(self.Constants.title)
@@ -20,22 +20,22 @@ class MainView(Tk):
 
         self.__bedroom_one_label = Label(self, text="Room\nOne", bg="red")
         self.__bedroom_one_label.grid(row=0, column=0, sticky=self.Constants.center)
-        self.__bedroom_one_toogle = ToggleButton(self, "Bedroom One", tap_toggle_handler=tap_handler, action = self.__did_tap)
+        self.__bedroom_one_toogle = ToggleButton(self, "Bedroom One", action = self.__did_tap, tap_toggle_handler=tap_handler)
         self.__bedroom_one_toogle.grid(row=1, column=0, sticky=self.Constants.center)
 
         self.__bedroom_two_label = Label(self, text="Room\nTwo", bg="yellow")
         self.__bedroom_two_label.grid(row=0, column=1, sticky=self.Constants.center)
-        self.__bedroom_two_toogle = ToggleButton(self, "Bedroom Two",tap_toggle_handler=tap_handler, action = self.__did_tap)
+        self.__bedroom_two_toogle = ToggleButton(self, "Bedroom Two", action = self.__did_tap, tap_toggle_handler=tap_handler)
         self.__bedroom_two_toogle.grid(row=1, column=1, sticky=self.Constants.center)
 
         self.__living_label = Label(self, text="Living\nroom", bg="blue", fg="white")
         self.__living_label.grid(row=0, column=2, sticky=self.Constants.center)
-        self.__living_toogle = ToggleButton(self, "Living room",tap_toggle_handler=tap_handler, action = self.__did_tap)
+        self.__living_toogle = ToggleButton(self, "Living room", action = self.__did_tap, tap_toggle_handler=tap_handler)
         self.__living_toogle.grid(row=1, column=2, sticky=self.Constants.center)
 
         self.__dining_label = Label(self, text="Dining\nroom", bg="green")
         self.__dining_label.grid(row=0, column=3, sticky=self.Constants.center)
-        self.__dining_toogle = ToggleButton(self,"Dining room", tap_toggle_handler=tap_handler, action = self.__did_tap)
+        self.__dining_toogle = ToggleButton(self,"Dining room", action = self.__did_tap, tap_toggle_handler=tap_handler)
         self.__dining_toogle.grid(row=1, column=3, sticky=self.Constants.center)
 
 
