@@ -35,7 +35,7 @@ class MainView(Tk):
 
         self.__dining_label = Label(self, text="Dining\nroom", bg="green")
         self.__dining_label.grid(row=0, column=3, sticky=self.Constants.center)
-        self.__dining_toogle = ToggleButton(self,"Dining room", tap_toggle_handler=tap_handler)
+        self.__dining_toogle = ToggleButton(self,"Dining room", tap_toggle_handler=tap_handler, action = self.__did_tap)
         self.__dining_toogle.grid(row=1, column=3, sticky=self.Constants.center)
 
 
