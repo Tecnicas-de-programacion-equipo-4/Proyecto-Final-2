@@ -1,7 +1,7 @@
 from tkinter import Tk, N, S, E, W, Label
 from Views.ToggleButton import ToggleButton
 
-self.__bedroom_one_label = Label(self, text="Room\nOne", relief = "sunken")
+        self.__bedroom_one_label = Label(self, text="Room\nOne", relief = "sunken")
         self.__bedroom_one_label.grid(row=0, column=0, sticky=self.Constants.center)
         self.__bedroom_one_toogle = ToggleButton(self, "Bedroom One", action=self.__did_tap, tap_toggle_handler= tap_handler)
         self.__bedroom_one_toogle.grid(row=1, column=0, sticky=self.Constants.center)
