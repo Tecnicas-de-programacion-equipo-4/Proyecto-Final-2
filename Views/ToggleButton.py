@@ -7,7 +7,7 @@ class ToggleButton(Label):
         off_file = "Assets/OFF.ppm"
         event = "<Button-1>"
 
-    def __init__(self, master, room_name, action = None,  tap_toggle_handler = None):
+    def __init__(self, master, room_name, action = None, tap_toggle_handler = None):
         super().__init__(master)
         self.__tap_handler = tap_toggle_handler
         self.__room_name = room_name
@@ -26,7 +26,6 @@ class ToggleButton(Label):
         if self.__tap_handler is None: return
         self.__action(self.__room_name)
         self.__tap_handler(self.__state)
-        #print("{}, {}".format(self.__state, self.__room_name))
 
 
     def __set_image(self, image):
