@@ -2,6 +2,7 @@ int room_one_led = 13;
 int room_two_led = 12;
 int living_led = 11;
 int dining_led = 10;
+int bathroom_led = 9;
 
 void setup() {
    Serial.begin(115200);
@@ -13,6 +14,8 @@ void setup() {
    digitalWrite(living_led, LOW);
    pinMode(dining_led, OUTPUT);
    digitalWrite(dining_led, LOW);
+   pinMode(bathroom_led, OUTPUT);
+   digitalWrite(bathroom_led, LOW);
 }
 
 void loop() { }
@@ -40,6 +43,16 @@ void serialEvent() {
     char state = (char)Serial.read();
     int led_state = state == '1' ? HIGH : LOW;
     digitalWrite(dining_led, led_state);
-  }   
+  }
+  else if (room == '3'){
+    char state = (char)Serial.read();
+    int led_state = state == '1' ? HIGH : LOW;
+    digitalWrite(living_led, led_state);
+  }
+  if (room == '5'){
+    char state = (char)Serial.read();
+    int led_state = state == '1' ? HIGH : LOW;
+    digitalWrite(bathroom_led, led_state);
+  }
 }
 

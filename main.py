@@ -21,8 +21,9 @@ class MainApp():
         elif self.__room == "Bedroom Two": self.__id = 2
         elif self.__room == "Living room": self.__id = 3
         elif self.__room == "Dining room": self.__id = 4
+        elif self.__room == "Bathroom": self.__id = 5
 
-        print("{} x{}".format(self.__id,self.__room))
+        print("{} x{}".format(self.__id, self.__room))
 
     def __toggle_did_change(self, state):
         value = str(1 if state else 0).encode('ascii')

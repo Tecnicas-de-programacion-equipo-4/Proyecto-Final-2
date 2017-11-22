@@ -5,7 +5,7 @@ class MainView(Tk):
     class Constants:
         title = "Casa Inteligente"
         heigth = 300
-        width = 300
+        width = 375
         center = N + S + E + W
 
         @classmethod
@@ -38,13 +38,19 @@ class MainView(Tk):
         self.__dining_toogle = ToggleButton(self,"Dining room", action = self.__did_tap, tap_toggle_handler=tap_handler)
         self.__dining_toogle.grid(row=1, column=3, sticky=self.Constants.center)
 
+        self.__bathroom_label = Label(self, text="Bath\nroom", bg="orange")
+        self.__bathroom_label.grid(row=0, column=4, sticky=self.Constants.center)
+        self.__bathroom_toogle = ToggleButton(self, "Bathroom", action=self.__did_tap, tap_toggle_handler=tap_handler)
+        self.__bathroom_toogle.grid(row=1, column=4, sticky=self.Constants.center)
+
 
         self.grid_rowconfigure(0, weight=self.Constants.heigth//2)
         self.grid_rowconfigure(1, weight=self.Constants.heigth//2)
-        self.grid_columnconfigure(0, weight=self.Constants.width//4)
-        self.grid_columnconfigure(1, weight=self.Constants.width//4)
-        self.grid_columnconfigure(2, weight=self.Constants.width//4)
-        self.grid_columnconfigure(3, weight=self.Constants.width//4)
+        self.grid_columnconfigure(0, weight=self.Constants.width//5)
+        self.grid_columnconfigure(1, weight=self.Constants.width//5)
+        self.grid_columnconfigure(2, weight=self.Constants.width//5)
+        self.grid_columnconfigure(3, weight=self.Constants.width//5)
+        self.grid_columnconfigure(4, weight=self.Constants.width//5)
 
     def __did_tap(self, sender):
         if self.__tap_toogle_handler is None: return
