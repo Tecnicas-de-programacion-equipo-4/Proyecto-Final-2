@@ -17,6 +17,8 @@ class MainView(Tk):
         self.title(self.Constants.title)
         self.geometry(self.Constants.size())
 
+        self.__configure_grid()
+
         self.__bedroom_one_label = Label(self, text="Room\nOne", relief = "sunken")
         self.__bedroom_one_label.grid(row=0, column=0, sticky=self.Constants.center)
         self.__bedroom_one_toogle = ToggleButton(self, "Bedroom One", action=self.__did_tap, tap_toggle_handler= tap_handler)
@@ -42,13 +44,11 @@ class MainView(Tk):
         self.__bathroom_toogle = ToggleButton(self, "Bathroom", action=self.__did_tap, tap_toggle_handler= tap_handler)
         self.__bathroom_toogle.grid(row=1, column=4, sticky=self.Constants.center)
 
+    def __configure_grid(self):
         self.grid_rowconfigure(0, weight=self.Constants.heigth//2)
         self.grid_rowconfigure(1, weight=self.Constants.heigth//2)
-        self.grid_columnconfigure(0, weight=self.Constants.width//5)
-        self.grid_columnconfigure(1, weight=self.Constants.width//5)
-        self.grid_columnconfigure(2, weight=self.Constants.width//5)
-        self.grid_columnconfigure(3, weight=self.Constants.width//5)
-        self.grid_columnconfigure(4, weight=self.Constants.width//5)
+        for column_index in range(5):
+            self.grid_columnconfigure(column_index, weight=self.Constants.width//5)
 
     def __did_tap(self, sender):
         if self.__toogle_handler is None: return

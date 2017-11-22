@@ -23,8 +23,6 @@ class MainApp():
         id = str(self.__id).encode('ascii')
         self.__arduino.write(id+value)
 
-
-
     def __on_closing(self):
         self.__arduino.close()
         self.__master.destroy()
