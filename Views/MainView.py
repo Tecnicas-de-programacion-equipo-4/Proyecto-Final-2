@@ -1,6 +1,5 @@
 from tkinter import Tk, N, S, E, W, Label
 from Views.ToggleButton import ToggleButton
-#from Views.KeypadView import KeypadView
 class MainView(Tk):
     class Constants:
         title = "Casa Inteligente"

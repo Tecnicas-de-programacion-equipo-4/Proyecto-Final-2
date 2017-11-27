@@ -1,58 +1,58 @@
-int room_one_led = 13;
-int room_two_led = 12;
-int living_led = 11;
-int dining_led = 10;
-int bathroom_led = 9;
+int roomoneLed = 13;
+int roomtwoLed = 12;
+int livingroomLed = 11;
+int diningroomLed = 10;
+int machineroomLed = 9;
 
 void setup() {
    Serial.begin(115200);
-   pinMode(room_one_led, OUTPUT);
-   digitalWrite(room_one_led, LOW);
-   pinMode(room_two_led, OUTPUT);
-   digitalWrite(room_two_led, LOW);
-   pinMode(living_led, OUTPUT);
-   digitalWrite(living_led, LOW);
-   pinMode(dining_led, OUTPUT);
-   digitalWrite(dining_led, LOW);
-   pinMode(bathroom_led, OUTPUT);
-   digitalWrite(bathroom_led, LOW);
+   pinMode(roomoneLed, OUTPUT);
+   digitalWrite(roomoneLed, LOW);
+   pinMode(roomtwoLed, OUTPUT);
+   digitalWrite(roomtwoLed, LOW);
+   pinMode(livingroomLed, OUTPUT);
+   digitalWrite(livingroomLed, LOW);
+   pinMode(diningroomLed, OUTPUT);
+   digitalWrite(diningroomLed, LOW);
+   pinMode(machineroomLed, OUTPUT);
+   digitalWrite(machineroomLed, LOW);
 }
 
 void loop() { }
 
 void serialEvent() {
-  char room = (char)Serial.read();
-  Serial.print(room);
+  char value = (char)Serial.read();
   delay(100);
-  if (room == '1'){
-    char state = (char)Serial.read();
-    int led_state = state == '1' ? HIGH : LOW;
-    digitalWrite(room_one_led, led_state);
+  if (value == '1'){
+    digitalWrite(roomoneLed, HIGH);
   }
-  else if (room == '2'){
-    char state = (char)Serial.read();
-    int led_state = state == '1' ? HIGH : LOW;
-    digitalWrite(room_two_led, led_state);
+  else if (value == '2'){
+    digitalWrite(roomoneLed, LOW);
   }
-  else if (room == '3'){
-    char state = (char)Serial.read();
-    int led_state = state == '1' ? HIGH : LOW;
-    digitalWrite(living_led, led_state);
+  else if (value == '3'){
+    digitalWrite(roomtwoLed, HIGH);
   }
-  else if (room == '4'){
-    char state = (char)Serial.read();
-    int led_state = state == '1' ? HIGH : LOW;
-    digitalWrite(dining_led, led_state);
+  else if (value == '4'){
+    digitalWrite(roomtwoLed, LOW);
   }
-  else if (room == '3'){
-    char state = (char)Serial.read();
-    int led_state = state == '1' ? HIGH : LOW;
-    digitalWrite(living_led, led_state);
+  else if (value == '5'){
+    digitalWrite(livingroomLed, HIGH);
   }
-  if (room == '5'){
-    char state = (char)Serial.read();
-    int led_state = state == '1' ? HIGH : LOW;
-    digitalWrite(bathroom_led, led_state);
+  else if (value == '6'){
+    digitalWrite(livingroomLed, LOW);
   }
+  else if (value == '7'){
+    digitalWrite(diningroomLed, HIGH);
+  }
+  else if (value == '8'){
+    digitalWrite(diningroomLed, LOW);
+  }
+  else if (value == '9'){
+    digitalWrite(machineroomLed, HIGH);
+  }
+  else if (value == 'a'){
+    digitalWrite(machineroomLed, LOW);
+  }
+  
 }
 
