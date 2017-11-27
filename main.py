@@ -1,4 +1,4 @@
-from Views.MainView import MainView
+from Views.LigthsView import LightsView
 import serial
 from serial.tools import list_ports
 
@@ -8,7 +8,7 @@ class MainApp():
         for port in list_ports.comports(include_links=True):
             print(port.device, port.name, port.description)
 
-        self.__master = MainView(toogle_handler = self.__handler_event, tap_handler = self.__toggle_did_change)
+        self.__master = LightsView(toogle_handler = self.__handler_event, tap_handler = self.__toggle_did_change)
         self.__arduino = serial.Serial('/dev/cu.usbmodem22', 115200)
         self.__master.protocol("WM_DELETE_WINDOW", self.__on_closing)
 
@@ -29,10 +29,7 @@ class MainApp():
         if (self.__id == 4) and (state == False): self.__valor = 8
         if (self.__id == 5) and (state == True): self.__valor = 9
         if (self.__id == 5) and (state == False): self.__valor = 'a'
-        print(self.__valor)
         value = str(self.__valor).encode('ascii')
-        #value = str(1 if state else 0).encode('ascii')
-        #id = str(self.__id).encode('ascii')
         self.__arduino.write(value)
 
     def __on_closing(self):

@@ -1,6 +1,6 @@
 from tkinter import Tk, N, S, E, W, Label
 from Views.ToggleButton import ToggleButton
-class MainView(Tk):
+class LightsView(Tk):
     class Constants:
         title = "Casa Inteligente"
         heigth = 300
