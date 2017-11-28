@@ -3,7 +3,7 @@ from tkinter import Tk, Frame, N, S, E, W
 class MainView(Tk):
     class Constants:
         center = N + S + E + W
-        title = 'Automatic Mode'
+        title = 'Casa inteligente'
 
     def __init__(self):
         super().__init__()

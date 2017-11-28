@@ -4,10 +4,19 @@ from Views.ManualVentilator2View import ViewVentilator2
 from Views.ViewContainer import MainView
 from Views.MainView import StartView
 from CustomType.View import View
+
+from Views.LigthsView import LightsView
+
+from Views.AlarmView import Alarm
+from Views.ParkingView import Parking
+from Views.EntranceView import Entrance
+
+
 import serial
 from serial.tools import list_ports
 
 class MainApp():
+
     class Constants:
         baud = 9600
         port = 'COM3'
@@ -21,8 +30,15 @@ class MainApp():
 
         self.main_view = StartView(self.__master.container, change_view_hadler=self.__did_change_view)
         self.ventilator_1 = ViewVentilator1(self.__master.container, change_view_handler=self.__did_change_view, tap_handler = self.__toggle_1_did_change_)
-
         self.ventilator_2 = ViewVentilator2(self.__master.container, change_view_handler=self.__did_change_view, tap_handler=self.__toggle_2_did_change_)
+
+        self.lights = LightsView(self.__master.container, change_view_handler=self.__did_change_view, toogle_handler=self.__handler_event, tap_handler=self.__toggle_did_change)
+        self.alarm = Alarm(self.__master.container, change_view_handler=self.__did_change_view)
+        self.parking = Parking(self.__master.container, change_view_handler=self.__did_change_view)
+        self.entrance = Entrance(self.__master.container, change_view_handler=self.__did_change_view)
+
+
+
 
         self.__arduino = serial.Serial(self.Constants.port, self.Constants.baud)
         self.__master.protocol(self.Constants.protocol_delete, self.__on_closing)
@@ -30,7 +46,11 @@ class MainApp():
         self.__frames = {
             View.Main_View: self.main_view,
             View.Ventilator_1: self.ventilator_1,
-            View.Ventilator_2: self.ventilator_2
+            View.Ventilator_2: self.ventilator_2,
+            View.Lights: self.lights,
+            View.Alarm: self.alarm,
+            View.Parking: self.parking,
+            View.Door: self.entrance
         }
 
         self.__master.set_views(self.__frames.values())
@@ -38,8 +58,10 @@ class MainApp():
         self.__update_clock()
 
 
+
     def run(self):
         self.__master.mainloop()
+
 
 
     def __did_change_view(self, view):
@@ -60,13 +82,16 @@ class MainApp():
 
     def __handle_data(self, data):
         clean_values = data.split(',')
-        self.value_1 = clean_values[0]
-        self.value_2 = clean_values[1]
+        try:
+            self.value_1 = float(clean_values[0])
+            self.value_2 = float(clean_values[1])
+        except Exception:
+            print('ERROR DATA')
 
-        if float(self.value_2) > self.Constants.temperature_limit and self.ventilator_2.Constants.manual_mode == False:
+        if self.value_2 > self.Constants.temperature_limit and self.ventilator_2.Constants.manual_mode == False:
             vent_2_value_1 = str(2).encode('ascii')
             self.__arduino.write(vent_2_value_1)
-        elif float(self.value_1) > self.Constants.temperature_limit and self.ventilator_1.Constants.manual_mode == False:
+        elif self.value_1 > self.Constants.temperature_limit and self.ventilator_1.Constants.manual_mode == False:
             vent_1_value_1 = str(1).encode('ascii')
             self.__arduino.write(vent_1_value_1)
         elif self.ventilator_1.Constants.manual_mode == False and self.ventilator_2.Constants.manual_mode == False:
@@ -82,13 +107,33 @@ class MainApp():
         self.__master.after(1, self.__update_clock)
 
 
+    def __handler_event(self, id):
+        self.__id = id
+
+    def __toggle_did_change(self, state):
+        if (self.__id == 1) and (state == True): self.__valor = 1
+        if (self.__id == 1) and (state == False): self.__valor = 2
+        if (self.__id == 2) and (state == True): self.__valor = 3
+        if (self.__id == 2) and (state == False): self.__valor = 4
+        if (self.__id == 3) and (state == True): self.__valor = 5
+        if (self.__id == 3) and (state == False): self.__valor = 6
+        if (self.__id == 4) and (state == True): self.__valor = 7
+        if (self.__id == 4) and (state == False): self.__valor = 8
+        if (self.__id == 5) and (state == True): self.__valor = 9
+        if (self.__id == 5) and (state == False): self.__valor = 'a'
+        value = str(self.__valor).encode('ascii')
+        self.__arduino.write(value)
+
+
     def __on_closing(self):
         self.__arduino.close()
         self.__master.destroy()
 
 
+
+
+
 if __name__ == "__main__":
     app = MainApp()
     app.run()
-
 
