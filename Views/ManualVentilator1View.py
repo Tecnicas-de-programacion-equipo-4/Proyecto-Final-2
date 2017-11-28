@@ -3,7 +3,7 @@ from CustomType.View import View
 from Views.Ventilator_Button import VentilatorButton
 
 
-class ViewVentilator(Frame):
+class ViewVentilator1(Frame):
     class Constants:
         title = "Toggle Ventilator"
         text = "Control Manual Ventilator 1"
@@ -35,3 +35,5 @@ class ViewVentilator(Frame):
             return
         self.__change_view_handler(view)
         self.Constants.manual_mode = False
+
+
