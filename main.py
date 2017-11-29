@@ -10,12 +10,19 @@ class MainApp():
             print(port.device, port.name, port.description)
 
         self.__master = LightsView(toogle_handler = self.__handler_event, tap_handler = self.__toggle_did_change)
-        self.__doorView = DoorView()
+        self.__doorView = DoorView(door_action = self.__toggle_did_change_door)
         self.__arduino = serial.Serial('/dev/cu.usbmodem33', 115200)
         self.__master.protocol("WM_DELETE_WINDOW", self.__on_closing)
 
     def run(self):
         self.__master.mainloop()
+
+    def __toggle_did_change_door(self, action):
+        self.__action = action
+        door_instruction = str(self.__action).encode('ascii')
+        self.__arduino.write(door_instruction)
+
+
 
     def __handler_event(self, id):
         self.__id = id
@@ -33,6 +40,11 @@ class MainApp():
         if (self.__id == 5) and (state == False): self.__valor = 'a'
         value = str(self.__valor).encode('ascii')
         self.__arduino.write(value)
+
+    def __door_handler_event(self, instruction):
+        self.__instruction = instruction
+        print(self.__instruction)
+
 
     def __on_closing(self):
         self.__arduino.close()

@@ -1,5 +1,6 @@
 #include <Servo.h>
-int pos = 0;
+int door_pos = 0;
+int garage_pos = 0;
 Servo doorServo;
 Servo garageServo;
 
@@ -19,7 +20,9 @@ void setup() {
    pinMode(diningroomLed, OUTPUT);
    digitalWrite(diningroomLed, LOW);
    doorServo.attach(6);
+   doorServo.write(0);
    garageServo.attach(5);
+   garageServo.write(0);
    
 }
 
@@ -53,27 +56,25 @@ void serialEvent() {
     digitalWrite(diningroomLed, LOW);
   }
   else if (value == 'a'){     //Apertura de puerta
-    for (pos = 0; pos <= 90; pos += 1) {
-    doorServo.write(pos);              
-    delay(15);
-    }
+    doorServo.write(90);
   }
   else if (value == 'b'){     //Cierre de puerta
-    for (pos = 90; pos >= 0; pos -= 1) {
-    doorServo.write(pos);              
-    delay(15);
-    }
+    doorServo.write(0);    
   }
   else if (value == 'c'){     //Apertura de garage
-    for (pos = 0; pos <= 180; pos += 1) {
-    garageServo.write(pos);              
-    delay(15);
+    if (garage_pos == 0){
+      for (garage_pos = 0; garage_pos <= 180; garage_pos += 1) {
+        garageServo.write(garage_pos);              
+        delay(15);
+      }
     }
   }
   else if (value == 'd'){     //Cierre de garage
-    for (pos = 180; pos >= 0; pos -= 1) {
-    garageServo.write(pos);              
-    delay(15);
+    if (garage_pos == 180){
+      for (garage_pos = 180; garage_pos >= 0; garage_pos -= 1) {
+        garageServo.write(garage_pos);              
+        delay(15);
+      }
     }
   }
   
