@@ -1,5 +1,6 @@
 from Views.LightsView import LightsView
 from Views.DoorView import DoorView
+from Views.ParkingView import ParkingView
 import serial
 from serial.tools import list_ports
 
@@ -11,6 +12,7 @@ class MainApp():
 
         self.__master = LightsView(toogle_handler = self.__handler_event, tap_handler = self.__toggle_did_change)
         self.__doorView = DoorView(door_action = self.__toggle_did_change_door)
+        self.__ParkingView = ParkingView(parking_action= self.__toggle_did_change_parking)
         self.__arduino = serial.Serial('/dev/cu.usbmodem33', 115200)
         self.__master.protocol("WM_DELETE_WINDOW", self.__on_closing)
 
@@ -22,7 +24,11 @@ class MainApp():
         door_instruction = str(self.__action).encode('ascii')
         self.__arduino.write(door_instruction)
 
-
+    def __toggle_did_change_parking(self, event):
+        self.__event = event
+        print(self.__event)
+        door_instruction = str(self.__event).encode('ascii')
+        self.__arduino.write(door_instruction)
 
     def __handler_event(self, id):
         self.__id = id
