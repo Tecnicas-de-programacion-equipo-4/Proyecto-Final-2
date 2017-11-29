@@ -11,24 +11,17 @@ class MainApp():
             print(port.device, port.name, port.description)
 
         self.__master = LightsView(toogle_handler = self.__handler_event, tap_handler = self.__toggle_did_change)
-        self.__doorView = DoorView(door_action = self.__toggle_did_change_door)
-        self.__ParkingView = ParkingView(parking_action= self.__toggle_did_change_parking)
-        self.__arduino = serial.Serial('/dev/cu.usbmodem33', 115200)
+        self.__doorView = DoorView(door_action = self.__servos_handler_action)
+        self.__ParkingView = ParkingView(parking_action= self.__servos_handler_action)
+        self.__arduino = serial.Serial('/dev/cu.usbmodem34', 115200)
         self.__master.protocol("WM_DELETE_WINDOW", self.__on_closing)
 
     def run(self):
         self.__master.mainloop()
 
-    def __toggle_did_change_door(self, action):
-        self.__action = action
-        door_instruction = str(self.__action).encode('ascii')
-        self.__arduino.write(door_instruction)
-
-    def __toggle_did_change_parking(self, event):
-        self.__event = event
-        print(self.__event)
-        door_instruction = str(self.__event).encode('ascii')
-        self.__arduino.write(door_instruction)
+    def __servos_handler_action(self, instruction):
+        self.__instruction = instruction
+        self.__arduino.write(self._instruction)
 
     def __handler_event(self, id):
         self.__id = id
@@ -47,14 +40,11 @@ class MainApp():
         value = str(self.__valor).encode('ascii')
         self.__arduino.write(value)
 
-    def __door_handler_event(self, instruction):
-        self.__instruction = instruction
-        print(self.__instruction)
-
-
     def __on_closing(self):
         self.__arduino.close()
         self.__master.destroy()
+        self.__doorView.destroy()
+        self.__ParkingView.destroy()
 
 
 
