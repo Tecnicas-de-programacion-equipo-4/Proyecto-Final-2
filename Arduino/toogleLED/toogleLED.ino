@@ -1,6 +1,6 @@
 #include <Servo.h>
 int door_pos = 0;
-int garage_pos = 0;
+int garage_pos = 180;
 Servo doorServo;
 Servo garageServo;
 
@@ -22,7 +22,7 @@ void setup() {
    doorServo.attach(6);
    doorServo.write(0);
    garageServo.attach(5);
-   garageServo.write(0);
+   garageServo.write(180);
    
 }
 
@@ -62,20 +62,10 @@ void serialEvent() {
     doorServo.write(0);    
   }
   else if (value == 'c'){     //Apertura de garage
-    if (garage_pos == 0){
-      for (garage_pos = 0; garage_pos <= 180; garage_pos += 1) {
-        garageServo.write(garage_pos);              
-        delay(15);
-      }
-    }
+    garageServo.write(0);
   }
   else if (value == 'd'){     //Cierre de garage
-    if (garage_pos == 180){
-      for (garage_pos = 180; garage_pos >= 0; garage_pos -= 1) {
-        garageServo.write(garage_pos);              
-        delay(15);
-      }
-    }
+    garageServo.write(180);
   }
   
 }
