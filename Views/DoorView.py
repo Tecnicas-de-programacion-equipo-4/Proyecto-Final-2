@@ -16,3 +16,15 @@ class DoorView(Tk):
         super().__init__()
         self.title(self.Constants.title)
         self.geometry(self.Constants.size())
+
+        self.__configure_grid()
+
+        self.__door_label = Label(self, text = "Puerta\nPrincipal")
+        self.__door_label.grid(row=0, column=0, sticky=self.Constants.center)
+
+
+
+    def __configure_grid(self):
+        self.grid_rowconfigure(0, weight=self.Constants.heigth//2)
+        self.grid_rowconfigure(1, weight=self.Constants.heigth//2)
+        self.grid_columnconfigure(0, weight=self.Constants.width)
