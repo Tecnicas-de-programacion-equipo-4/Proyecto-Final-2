@@ -1,45 +1,47 @@
 from tkinter import N, S, E, W, Label, Button, Frame
 from CustomType.View import View
+from Views.ToogleDoorButton import ToogleDoorButton
 
 
-class Parking(Frame):
+class Entrance(Frame):
     class Constants:
-        title = "Control del estacionamiento"
         text_button_back = "Back to Home"
-        center = N + S + E + W
-        event = "<Button-1>"
         heigth = 300
         width = 300
+        center = N + S + E + W
+        event = "<Button-1>"
 
-        @classmethod
-        def size(cls):
-            return "{}x{}".format(cls.width, cls.heigth)
+    @classmethod
+    def size(cls):
+        return "{}x{}".format(cls.width, cls.heigth)
 
-    def __init__(self, parent, change_view_handler=None, parking_action=None):
+    def __init__(self, parent, change_view_handler=None, door_action=None):
         super().__init__(parent)
 
-
+        self.__door_action = door_action
         self.__change_view_handler = change_view_handler
 
-        button1 = Button(self, text=self.Constants.text_button_back,
-                         command=lambda: self.__did_tap_change_button(View.Main_View,),font=("Comic Sans MS", 18))
-        button1.grid(row = 3)
-
-        self.__parking_action = parking_action
         self.__configure_grid()
 
-        self.__door_label = Label(self, text="Parking", relief="sunken",font=("Comic Sans MS", 40))
+        button1 = Button(self, text=self.Constants.text_button_back,
+                         command=lambda: self.__did_tap_change_button(View.Main_View), font=("Comic Sans MS", 18))
+        button1.grid(row = 3)
+
+        self.__door_label = Label(self, text="Main\nDoor", relief="sunken",font=("Comic Sans MS", 40))
         self.__door_label.grid(row=0, column=0, sticky=self.Constants.center)
 
-        self.__open_door_button = Button(self, font=("Comic Sans MS", 22), bg = "black", fg ="white")
-        self.__open_door_button.configure(text="Open")
+        self.__open_door_button = Button(self)
+        self.__open_door_button.configure(text="Open", bg ="black", fg ="white", font=("Comic Sans MS", 22))
         self.__open_door_button.grid(row=1, column=0, sticky=self.Constants.center)
         self.__open_door_button.bind(self.Constants.event, self.__did_tap_open)
 
-        self.__close_door_button = Button(self,font=("Comic Sans MS", 22), bg = "red", fg = "white")
-        self.__close_door_button.configure(text="Close")
+        self.__close_door_button = Button(self)
+        self.__close_door_button.configure(text="Close", bg="red", fg= "white",font=("Comic Sans MS", 22))
         self.__close_door_button.grid(row=2, column=0, sticky=self.Constants.center)
         self.__close_door_button.bind(self.Constants.event, self.__did_tap_close)
+
+        #self.__door_toogle = ToogleDoorButton(self, door_action=door_tap_handler)
+        #self.__door_toogle.grid(row=0, column=1, sticky=self.Constants.center)
 
     def __configure_grid(self):
         self.grid_rowconfigure(0, weight=self.Constants.heigth // 2)
@@ -48,12 +50,12 @@ class Parking(Frame):
         self.grid_columnconfigure(0, weight=self.Constants.width)
 
     def __did_tap_open(self, event):
-        action = 'c'
-        self.__parking_action(action)
+        action = 'a'
+        self.__door_action(action)
 
     def __did_tap_close(self, event):
-        action = 'd'
-        self.__parking_action(action)
+        action = 'b'
+        self.__door_action(action)
 
     def __did_tap_change_button(self, view):
         if self.__change_view_handler is None:
