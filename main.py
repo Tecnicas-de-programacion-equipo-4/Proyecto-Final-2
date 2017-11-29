@@ -9,7 +9,7 @@ class MainApp():
             print(port.device, port.name, port.description)
 
         self.__master = LightsView(toogle_handler = self.__handler_event, tap_handler = self.__toggle_did_change)
-        self.__arduino = serial.Serial('/dev/cu.usbmodem22', 115200)
+        self.__arduino = serial.Serial('/dev/cu.usbmodem33', 115200)
         self.__master.protocol("WM_DELETE_WINDOW", self.__on_closing)
 
     def run(self):

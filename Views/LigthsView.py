@@ -2,9 +2,9 @@ from tkinter import Tk, N, S, E, W, Label
 from Views.ToggleButton import ToggleButton
 class LightsView(Tk):
     class Constants:
-        title = "Casa Inteligente"
+        title = "Control de Luces"
         heigth = 300
-        width = 375
+        width = 300
         center = N + S + E + W
 
         @classmethod
@@ -21,14 +21,12 @@ class LightsView(Tk):
 
         self.__bedroom_one_label = Label(self, text="Room\nOne", relief="sunken")
         self.__bedroom_one_label.grid(row=0, column=0, sticky=self.Constants.center)
-        self.__bedroom_one_toogle = ToggleButton(self, "Bedroom One", action=self.__did_tap,
-                                                 tap_toggle_handler=tap_handler)
+        self.__bedroom_one_toogle = ToggleButton(self, "Bedroom One", action=self.__did_tap, tap_toggle_handler=tap_handler)
         self.__bedroom_one_toogle.grid(row=1, column=0, sticky=self.Constants.center)
 
         self.__bedroom_two_label = Label(self, text="Room\nTwo", relief="sunken")
         self.__bedroom_two_label.grid(row=0, column=1, sticky=self.Constants.center)
-        self.__bedroom_two_toogle = ToggleButton(self, "Bedroom Two", action=self.__did_tap,
-                                                 tap_toggle_handler=tap_handler)
+        self.__bedroom_two_toogle = ToggleButton(self, "Bedroom Two", action=self.__did_tap, tap_toggle_handler=tap_handler)
         self.__bedroom_two_toogle.grid(row=1, column=1, sticky=self.Constants.center)
 
         self.__living_label = Label(self, text="Living\nroom", relief="sunken")
@@ -41,17 +39,12 @@ class LightsView(Tk):
         self.__dining_toogle = ToggleButton(self, "Dining room", action=self.__did_tap, tap_toggle_handler=tap_handler)
         self.__dining_toogle.grid(row=1, column=3, sticky=self.Constants.center)
 
-        self.__bathroom_label = Label(self, text="Bath\nroom", relief="sunken")
-        self.__bathroom_label.grid(row=0, column=4, sticky=self.Constants.center)
-        self.__bathroom_toogle = ToggleButton(self, "Bathroom", action=self.__did_tap, tap_toggle_handler=tap_handler)
-        self.__bathroom_toogle.grid(row=1, column=4, sticky=self.Constants.center)
-
 
     def __configure_grid(self):
         self.grid_rowconfigure(0, weight=self.Constants.heigth//2)
         self.grid_rowconfigure(1, weight=self.Constants.heigth//2)
-        for column_index in range(5):
-            self.grid_columnconfigure(column_index, weight=self.Constants.width//5)
+        for column_index in range(4):
+            self.grid_columnconfigure(column_index, weight=self.Constants.width//4)
 
     def __did_tap(self, sender):
         if self.__toogle_handler is None: return
@@ -59,5 +52,4 @@ class LightsView(Tk):
         elif sender == "Bedroom Two": id = 2
         elif sender == "Living room": id = 3
         elif sender == "Dining room": id = 4
-        elif sender == "Bathroom": id = 5
         self.__toogle_handler(id)
