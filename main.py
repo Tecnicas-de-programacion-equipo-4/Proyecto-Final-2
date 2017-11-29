@@ -21,7 +21,6 @@ class MainApp():
 
     def __servos_handler_action(self, instruction):
         self.__instruction = instruction
-        print(self.__instruction)
         self.__arduino.write(self._instruction)
 
     def __handler_event(self, id):
