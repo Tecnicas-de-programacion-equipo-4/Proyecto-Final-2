@@ -1,4 +1,5 @@
-from Views.LigthsView import LightsView
+from Views.LightsView import LightsView
+from Views.DoorView import DoorView
 import serial
 from serial.tools import list_ports
 
@@ -9,6 +10,7 @@ class MainApp():
             print(port.device, port.name, port.description)
 
         self.__master = LightsView(toogle_handler = self.__handler_event, tap_handler = self.__toggle_did_change)
+        self.__doorView = DoorView()
         self.__arduino = serial.Serial('/dev/cu.usbmodem33', 115200)
         self.__master.protocol("WM_DELETE_WINDOW", self.__on_closing)
 

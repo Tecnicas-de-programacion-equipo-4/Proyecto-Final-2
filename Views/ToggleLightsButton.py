@@ -1,6 +1,6 @@
 from tkinter import Label, PhotoImage
 
-class ToggleButton(Label):
+class ToggleLightsButton(Label):
 
     class Constants:
         on_file = "Assets/ON.ppm"
