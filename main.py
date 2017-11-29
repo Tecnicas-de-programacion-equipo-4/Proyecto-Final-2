@@ -11,6 +11,8 @@ from Views.AlarmView import Alarm
 from Views.ParkingView import Parking
 from Views.EntranceView import Entrance
 
+#Todo lo que tiene que ver con arduino esta comentado para probar la UI
+#Hay que revisar como va a entregar los datos en la version final del arcchivo de arduino para el update
 
 import serial
 from serial.tools import list_ports
@@ -24,8 +26,8 @@ class MainApp():
         temperature_limit = 23.0
 
     def __init__(self):
-        for port in list_ports.comports(include_links = True):
-            print(port.device, port.name, port.description)
+        #for port in list_ports.comports(include_links = True):
+         #   print(port.device, port.name, port.description)
         self.__master = MainView()
 
         self.main_view = StartView(self.__master.container, change_view_hadler=self.__did_change_view)
@@ -40,8 +42,8 @@ class MainApp():
 
 
 
-        self.__arduino = serial.Serial(self.Constants.port, self.Constants.baud)
-        self.__master.protocol(self.Constants.protocol_delete, self.__on_closing)
+        #self.__arduino = serial.Serial(self.Constants.port, self.Constants.baud)
+        #self.__master.protocol(self.Constants.protocol_delete, self.__on_closing)
 
         self.__frames = {
             View.Main_View: self.main_view,
@@ -71,13 +73,13 @@ class MainApp():
     def __toggle_1_did_change_(self, state):
         self.ventilator_1.Constants.manual_mode = True
         value_1 = str(1 if state else 0).encode('ascii')
-        self.__arduino.write(value_1)
+        #self.__arduino.write(value_1)
 
 
     def __toggle_2_did_change_(self, state):
         self.ventilator_2.Constants.manual_mode = True
         value_2 = str(2 if state else 0).encode('ascii')
-        self.__arduino.write(value_2)
+        #self.__arduino.write(value_2)
 
 
     def __handle_data(self, data):
@@ -90,21 +92,34 @@ class MainApp():
 
         if self.value_2 > self.Constants.temperature_limit and self.ventilator_2.Constants.manual_mode == False:
             vent_2_value_1 = str(2).encode('ascii')
-            self.__arduino.write(vent_2_value_1)
+            #self.__arduino.write(vent_2_value_1)
         elif self.value_1 > self.Constants.temperature_limit and self.ventilator_1.Constants.manual_mode == False:
             vent_1_value_1 = str(1).encode('ascii')
-            self.__arduino.write(vent_1_value_1)
+            #self.__arduino.write(vent_1_value_1)
         elif self.ventilator_1.Constants.manual_mode == False and self.ventilator_2.Constants.manual_mode == False:
             value = str(0).encode('ascii')
-            self.__arduino.write(value)
+            #self.__arduino.write(value)
 
         self.main_view.update_text(self.value_1, self.value_2)
 
 
     def __update_clock(self):
-        data = self.__arduino.readline().decode()
-        self.__handle_data(data)
-        self.__master.after(1, self.__update_clock)
+        #Temperatura
+        #data = self.__arduino.readline().decode()
+        #self.__handle_data(data)
+
+        #Seguridad
+        # data = self.__arduino.readline().decode()
+        # clean_data = data.strip(" \n\r").split(",")
+        # try:
+        #    outside = clean_data[0]
+        #    inside = clean_data[1]
+        #    self.__master.sec(outside, inside)
+        # except:
+        #    pass
+        #self.__master.after(1, self.__update_clock)
+
+        pass
 
 
     def __handler_event(self, id):
@@ -126,7 +141,7 @@ class MainApp():
 
 
     def __on_closing(self):
-        self.__arduino.close()
+        #self.__arduino.close()
         self.__master.destroy()
 
 
