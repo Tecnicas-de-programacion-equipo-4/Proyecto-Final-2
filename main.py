@@ -26,8 +26,6 @@ class MainApp():
         temperature_limit = 23.0
 
     def __init__(self):
-        #for port in list_ports.comports(include_links = True):
-         #   print(port.device, port.name, port.description)
         self.__master = MainView()
 
         self.main_view = StartView(self.__master.container, change_view_hadler=self.__did_change_view)
@@ -38,9 +36,6 @@ class MainApp():
         self.alarm = Alarm(self.__master.container, change_view_handler=self.__did_change_view)
         self.parking = Parking(self.__master.container, change_view_handler=self.__did_change_view)
         self.entrance = Entrance(self.__master.container, change_view_handler=self.__did_change_view)
-
-
-
 
         #self.__arduino = serial.Serial(self.Constants.port, self.Constants.baud)
         #self.__master.protocol(self.Constants.protocol_delete, self.__on_closing)
@@ -165,7 +160,7 @@ class MainApp():
         if (self.__id == 5) and (state == True): self.__valor = 9
         if (self.__id == 5) and (state == False): self.__valor = 'a'
         value = str(self.__valor).encode('ascii')
-        self.__arduino.write(value)
+        #self.__arduino.write(value)
 
     def __door_handler_event(self, instruction):
         self.__instruction = instruction

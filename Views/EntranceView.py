@@ -1,6 +1,5 @@
 from tkinter import N, S, E, W, Label, Button, Frame
 from CustomType.View import View
-from Views.ToogleDoorButton import ToogleDoorButton
 
 
 class Entrance(Frame):
