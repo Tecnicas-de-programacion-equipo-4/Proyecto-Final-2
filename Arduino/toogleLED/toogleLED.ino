@@ -1,8 +1,13 @@
+#include <Servo.h>
+int door_pos = 0;
+int garage_pos = 180;
+Servo doorServo;
+Servo garageServo;
+
 int roomoneLed = 13;
 int roomtwoLed = 12;
 int livingroomLed = 11;
 int diningroomLed = 10;
-int machineroomLed = 9;
 
 void setup() {
    Serial.begin(115200);
@@ -14,8 +19,11 @@ void setup() {
    digitalWrite(livingroomLed, LOW);
    pinMode(diningroomLed, OUTPUT);
    digitalWrite(diningroomLed, LOW);
-   pinMode(machineroomLed, OUTPUT);
-   digitalWrite(machineroomLed, LOW);
+   doorServo.attach(6);
+   doorServo.write(0);
+   garageServo.attach(5);
+   garageServo.write(180);
+
 }
 
 void loop() { }
@@ -47,12 +55,17 @@ void serialEvent() {
   else if (value == '8'){
     digitalWrite(diningroomLed, LOW);
   }
-  else if (value == '9'){
-    digitalWrite(machineroomLed, HIGH);
+  else if (value == 'a'){     //Apertura de puerta
+    doorServo.write(90);
   }
-  else if (value == 'a'){
-    digitalWrite(machineroomLed, LOW);
+  else if (value == 'b'){     //Cierre de puerta
+    doorServo.write(0);
+  }
+  else if (value == 'c'){     //Apertura de garage
+    garageServo.write(0);
+  }
+  else if (value == 'd'){     //Cierre de garage
+    garageServo.write(180);
   }
   
 }
-
