@@ -1,6 +1,7 @@
 from tkinter import Frame, N, S, E, W, Label, Button
 from Views.ToggleButton import ToggleButton
 from CustomType.View import View
+
 class LightsView(Frame):
     class Constants:
         title = "Casa Inteligente"
@@ -25,19 +26,17 @@ class LightsView(Frame):
 
         self.__bedroom_one_label = Label(self, text="Room\nOne", relief="sunken", bg = "black", fg = "white", font = ("Comic Sans MS",20))
         self.__bedroom_one_label.grid(row=0, column=0, sticky=self.Constants.center)
-        self.__bedroom_one_toogle = ToggleButton(self, "Bedroom One", action=self.__did_tap,
-                                                 tap_toggle_handler=tap_handler)
+        self.__bedroom_one_toogle = ToggleButton(self, "Bedroom One", action=self.__did_tap, tap_toggle_handler=tap_handler)
         self.__bedroom_one_toogle.grid(row=1, column=0, sticky=self.Constants.center)
 
         self.__bedroom_two_label = Label(self, text="Room\nTwo", relief="sunken",bg = "black", fg = "white", font = ("Comic Sans MS",20))
         self.__bedroom_two_label.grid(row=0, column=1, sticky=self.Constants.center)
-        self.__bedroom_two_toogle = ToggleButton(self, "Bedroom Two", action=self.__did_tap,
-                                                 tap_toggle_handler=tap_handler)
+        self.__bedroom_two_toogle = ToggleButton(self, "Bedroom Two", action=self.__did_tap, tap_toggle_handler=tap_handler)
         self.__bedroom_two_toogle.grid(row=1, column=1, sticky=self.Constants.center)
 
         self.__living_label = Label(self, text="Living\nroom", relief="sunken", bg = "black", fg = "white", font = ("Comic Sans MS",20))
         self.__living_label.grid(row=0, column=2, sticky=self.Constants.center)
-        self.__living_toogle = ToggleButton(self, "Living room", action=self.__did_tap, tap_toggle_handler=tap_handler,)
+        self.__living_toogle = ToggleButton(self, "Living room", action=self.__did_tap, tap_toggle_handler=tap_handler)
         self.__living_toogle.grid(row=1, column=2, sticky=self.Constants.center)
 
         self.__dining_label = Label(self, text="Dining\nroom", relief="sunken", bg = "black", fg = "white", font = ("Comic Sans MS",20))
@@ -63,7 +62,6 @@ class LightsView(Frame):
         elif sender == "Bedroom Two": id = 2
         elif sender == "Living room": id = 3
         elif sender == "Dining room": id = 4
-        elif sender == "Bathroom": id = 5
         self.__toogle_handler(id)
 
     def __did_tap_change_button(self, view):

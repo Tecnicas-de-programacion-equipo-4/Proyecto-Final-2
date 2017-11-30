@@ -21,33 +21,33 @@ class MainApp():
 
     class Constants:
         baud = 9600
-        port = 'COM3'
+        port = ''
         protocol_delete = "WM_DELETE_WINDOW"
         temperature_limit = 23.0
 
     def __init__(self):
         self.__master = MainView()
 
-        self.main_view = StartView(self.__master.container, change_view_hadler=self.__did_change_view)
-        self.ventilator_1 = ViewVentilator1(self.__master.container, change_view_handler=self.__did_change_view, tap_handler = self.__toggle_1_did_change_)
-        self.ventilator_2 = ViewVentilator2(self.__master.container, change_view_handler=self.__did_change_view, tap_handler=self.__toggle_2_did_change_)
+        self.__main_view = StartView(self.__master.container, change_view_hadler=self.__did_change_view)
+        self.__ventilator_1 = ViewVentilator1(self.__master.container, change_view_handler=self.__did_change_view, tap_handler = self.__toggle_1_did_change_)
+        self.__ventilator_2 = ViewVentilator2(self.__master.container, change_view_handler=self.__did_change_view, tap_handler=self.__toggle_2_did_change_)
 
-        self.lights = LightsView(self.__master.container, change_view_handler=self.__did_change_view, toogle_handler=self.__handler_event, tap_handler=self.__toggle_did_change)
-        self.alarm = Alarm(self.__master.container, change_view_handler=self.__did_change_view)
-        self.parking = Parking(self.__master.container, change_view_handler=self.__did_change_view)
-        self.entrance = Entrance(self.__master.container, change_view_handler=self.__did_change_view)
+        self.__lights = LightsView(self.__master.container, change_view_handler=self.__did_change_view, toogle_handler=self.__handler_event, tap_handler=self.__toggle_did_change)
+        self.__alarm = Alarm(self.__master.container, change_view_handler=self.__did_change_view)
+        self.__parking = Parking(self.__master.container, change_view_handler=self.__did_change_view)
+        self.__entrance = Entrance(self.__master.container, change_view_handler=self.__did_change_view)
 
-        #self.__arduino = serial.Serial(self.Constants.port, self.Constants.baud)
-        #self.__master.protocol(self.Constants.protocol_delete, self.__on_closing)
+        self.__arduino = serial.Serial('/dev/cu.usbmodem37', 115200)
+        self.__master.protocol("WM_DELETE_WINDOW", self.__on_closing)
 
         self.__frames = {
-            View.Main_View: self.main_view,
-            View.Ventilator_1: self.ventilator_1,
-            View.Ventilator_2: self.ventilator_2,
-            View.Lights: self.lights,
-            View.Alarm: self.alarm,
-            View.Parking: self.parking,
-            View.Door: self.entrance
+            View.Main_View: self.__main_view,
+            View.Ventilator_1: self.__ventilator_1,
+            View.Ventilator_2: self.__ventilator_2,
+            View.Lights: self.__lights,
+            View.Alarm: self.__alarm,
+            View.Parking: self.__parking,
+            View.Door: self.__entrance
         }
 
         self.__master.set_views(self.__frames.values())
@@ -116,39 +116,22 @@ class MainApp():
 
         pass
 
-
-    def __handler_event(self, id):
-        self.__id = id
-
-    def __toggle_did_change(self, state):
-        if (self.__id == 1) and (state == True): self.__valor = 1
-        if (self.__id == 1) and (state == False): self.__valor = 2
-        if (self.__id == 2) and (state == True): self.__valor = 3
-        if (self.__id == 2) and (state == False): self.__valor = 4
-        if (self.__id == 3) and (state == True): self.__valor = 5
-        if (self.__id == 3) and (state == False): self.__valor = 6
-        if (self.__id == 4) and (state == True): self.__valor = 7
-        if (self.__id == 4) and (state == False): self.__valor = 8
-        if (self.__id == 5) and (state == True): self.__valor = 9
-        if (self.__id == 5) and (state == False): self.__valor = 'a'
-        value = str(self.__valor).encode('ascii')
-        self.__arduino.write(value)
-
     def __toggle_did_change_door(self, action):
         self.__action = action
         door_instruction = str(self.__action).encode('ascii')
-        self.__arduino.write(door_instruction)
+        #self.__arduino.write(door_instruction)
 
     def __toggle_did_change_parking(self, event):
         self.__event = event
         print(self.__event)
         door_instruction = str(self.__event).encode('ascii')
-        self.__arduino.write(door_instruction)
+        #self.__arduino.write(door_instruction)
 
     def __handler_event(self, id):
         self.__id = id
 
     def __toggle_did_change(self, state):
+        print("{} , {}".format(self.__id, state))
         if (self.__id == 1) and (state == True): self.__valor = 1
         if (self.__id == 1) and (state == False): self.__valor = 2
         if (self.__id == 2) and (state == True): self.__valor = 3
@@ -157,10 +140,9 @@ class MainApp():
         if (self.__id == 3) and (state == False): self.__valor = 6
         if (self.__id == 4) and (state == True): self.__valor = 7
         if (self.__id == 4) and (state == False): self.__valor = 8
-        if (self.__id == 5) and (state == True): self.__valor = 9
-        if (self.__id == 5) and (state == False): self.__valor = 'a'
+        print(self.__valor)
         value = str(self.__valor).encode('ascii')
-        #self.__arduino.write(value)
+        self.__arduino.write(value)
 
     def __door_handler_event(self, instruction):
         self.__instruction = instruction
@@ -168,7 +150,7 @@ class MainApp():
 
 
     def __on_closing(self):
-        #self.__arduino.close()
+        self.__arduino.close()
         self.__master.destroy()
 
 
