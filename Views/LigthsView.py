@@ -45,10 +45,6 @@ class LightsView(Frame):
         self.__dining_toogle = ToggleButton(self, "Dining room", action=self.__did_tap, tap_toggle_handler=tap_handler)
         self.__dining_toogle.grid(row=1, column=3, sticky=self.Constants.center)
 
-        self.__bathroom_label = Label(self, text="Bath\nroom", relief="sunken",bg = "black", fg = "white", font = ("Comic Sans MS",20))
-        self.__bathroom_label.grid(row=0, column=4, sticky=self.Constants.center)
-        self.__bathroom_toogle = ToggleButton(self, "Bathroom", action=self.__did_tap, tap_toggle_handler=tap_handler)
-        self.__bathroom_toogle.grid(row=1, column=4, sticky=self.Constants.center)
 
         button_back = Button(self, text=self.Constants.text_button_back,bg = "black", fg = "white", font = ("Comic Sans MS",20),command=lambda: self.__did_tap_change_button(View.Main_View))
         button_back.grid(row = 2, columnspan = 5, sticky = self.Constants.center,)
@@ -58,7 +54,7 @@ class LightsView(Frame):
         self.grid_rowconfigure(0, weight=self.Constants.heigth//2)
         self.grid_rowconfigure(1, weight=self.Constants.heigth//2)
         self.grid_rowconfigure(2, weight = self.Constants.heigth // 2)
-        for column_index in range(5):
+        for column_index in range(4):
             self.grid_columnconfigure(column_index, weight=self.Constants.width//5)
 
     def __did_tap(self, sender):
