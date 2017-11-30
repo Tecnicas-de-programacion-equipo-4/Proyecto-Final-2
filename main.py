@@ -3,15 +3,13 @@ from Views.ManualVentilator1View import ViewVentilator1
 from Views.ManualVentilator2View import ViewVentilator2
 from Views.ViewContainer import MainView
 from Views.MainView import StartView
-from CustomType.View import View
-
 from Views.LigthsView import LightsView
-
 from Views.AlarmView import Alarm
 from Views.ParkingView import Parking
 from Views.EntranceView import Entrance
+from CustomType.View import View
 
-#Todo lo que tiene que ver con arduino esta comentado para probar la UI
+
 #Hay que revisar como va a entregar los datos en la version final del arcchivo de arduino para el update
 
 import serial
@@ -34,10 +32,10 @@ class MainApp():
 
         self.__lights = LightsView(self.__master.container, change_view_handler=self.__did_change_view, toogle_handler=self.__handler_event, tap_handler=self.__toggle_did_change)
         self.__alarm = Alarm(self.__master.container, change_view_handler=self.__did_change_view)
-        self.__parking = Parking(self.__master.container, change_view_handler=self.__did_change_view)
-        self.__entrance = Entrance(self.__master.container, change_view_handler=self.__did_change_view)
+        self.__parking = Parking(self.__master.container, change_view_handler=self.__did_change_view, parking_action=self.__did_change_servo_position)
+        self.__entrance = Entrance(self.__master.container, change_view_handler=self.__did_change_view, door_action=self.__did_change_servo_position)
 
-        self.__arduino = serial.Serial('/dev/cu.usbmodem37', 115200)
+        self.__arduino = serial.Serial('/dev/cu.usbmodem39', 115200)
         self.__master.protocol("WM_DELETE_WINDOW", self.__on_closing)
 
         self.__frames = {
@@ -54,12 +52,8 @@ class MainApp():
         self.__did_change_view(View.Main_View)
         self.__update_clock()
 
-
-
     def run(self):
         self.__master.mainloop()
-
-
 
     def __did_change_view(self, view):
         frame = self.__frames[view]
@@ -116,16 +110,10 @@ class MainApp():
 
         pass
 
-    def __toggle_did_change_door(self, action):
-        self.__action = action
-        door_instruction = str(self.__action).encode('ascii')
-        #self.__arduino.write(door_instruction)
-
-    def __toggle_did_change_parking(self, event):
-        self.__event = event
-        print(self.__event)
-        door_instruction = str(self.__event).encode('ascii')
-        #self.__arduino.write(door_instruction)
+    def __did_change_servo_position(self, instruction):
+        self.__instruction = instruction
+        servo_instruction = str(self.__instruction).encode('ascii')
+        self.__arduino.write(servo_instruction)
 
     def __handler_event(self, id):
         self.__id = id
@@ -144,17 +132,10 @@ class MainApp():
         value = str(self.__valor).encode('ascii')
         self.__arduino.write(value)
 
-    def __door_handler_event(self, instruction):
-        self.__instruction = instruction
-        print(self.__instruction)
-
 
     def __on_closing(self):
         self.__arduino.close()
         self.__master.destroy()
-
-
-
 
 
 if __name__ == "__main__":

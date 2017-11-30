@@ -1,7 +1,6 @@
 from tkinter import N, S, E, W, Label, Button, Frame
 from CustomType.View import View
 
-
 class Entrance(Frame):
     class Constants:
         text_button_back = "Back to Home"
@@ -38,9 +37,6 @@ class Entrance(Frame):
         self.__close_door_button.configure(text="Close", bg="red", fg= "white",font=("Comic Sans MS", 22))
         self.__close_door_button.grid(row=2, column=0, sticky=self.Constants.center)
         self.__close_door_button.bind(self.Constants.event, self.__did_tap_close)
-
-        #self.__door_toogle = ToogleDoorButton(self, door_action=door_tap_handler)
-        #self.__door_toogle.grid(row=0, column=1, sticky=self.Constants.center)
 
     def __configure_grid(self):
         self.grid_rowconfigure(0, weight=self.Constants.heigth // 2)
