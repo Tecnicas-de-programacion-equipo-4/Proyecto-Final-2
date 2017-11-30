@@ -25,17 +25,17 @@ class MainApp():
 
     def __init__(self):
         self.__master = MainView()
-
         self.__main_view = StartView(self.__master.container, change_view_hadler=self.__did_change_view)
         self.__ventilator_1 = ViewVentilator1(self.__master.container, change_view_handler=self.__did_change_view, tap_handler = self.__toggle_1_did_change_)
         self.__ventilator_2 = ViewVentilator2(self.__master.container, change_view_handler=self.__did_change_view, tap_handler=self.__toggle_2_did_change_)
-
+#{Este chung ya no se modifica...
         self.__lights = LightsView(self.__master.container, change_view_handler=self.__did_change_view, toogle_handler=self.__handler_event, tap_handler=self.__toggle_did_change)
-        self.__alarm = Alarm(self.__master.container, change_view_handler=self.__did_change_view)
         self.__parking = Parking(self.__master.container, change_view_handler=self.__did_change_view, parking_action=self.__did_change_servo_position)
         self.__entrance = Entrance(self.__master.container, change_view_handler=self.__did_change_view, door_action=self.__did_change_servo_position)
+#..Hasta acá.}
+        self.__alarm = Alarm(self.__master.container, change_view_handler=self.__did_change_view)
 
-        self.__arduino = serial.Serial('/dev/cu.usbmodem39', 115200)
+        self.__arduino = serial.Serial('/dev/cu.usbmodem40', 115200)
         self.__master.protocol("WM_DELETE_WINDOW", self.__on_closing)
 
         self.__frames = {
@@ -109,7 +109,7 @@ class MainApp():
         #self.__master.after(1, self.__update_clock)
 
         pass
-
+#{Este chung ya no se modifiica...
     def __did_change_servo_position(self, instruction):
         self.__instruction = instruction
         servo_instruction = str(self.__instruction).encode('ascii')
@@ -131,7 +131,7 @@ class MainApp():
         print(self.__valor)
         value = str(self.__valor).encode('ascii')
         self.__arduino.write(value)
-
+#... hasta acá
 
     def __on_closing(self):
         self.__arduino.close()

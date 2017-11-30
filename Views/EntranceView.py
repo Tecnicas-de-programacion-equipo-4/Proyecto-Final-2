@@ -1,6 +1,8 @@
 from tkinter import N, S, E, W, Label, Button, Frame
 from CustomType.View import View
 
+#Este archivo ya no se modifica.
+
 class Entrance(Frame):
     class Constants:
         text_button_back = "Back to Home"

@@ -2,6 +2,8 @@ from tkinter import Frame, N, S, E, W, Label, Button
 from Views.ToggleButton import ToggleButton
 from CustomType.View import View
 
+#Este archivo ya no se modifica.
+
 class LightsView(Frame):
     class Constants:
         title = "Casa Inteligente"
