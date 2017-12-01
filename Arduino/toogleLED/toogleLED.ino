@@ -114,5 +114,9 @@ void serialEvent() {
   else if (value == 'h'){
     digitalWrite(ventilator_2, LOW);
   }
+  else if (value == 'i'){
+    digitalWrite(ventilator_1, LOW);
+    digitalWrite(ventilator_2, LOW);
+  }
   
 }

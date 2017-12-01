@@ -87,15 +87,14 @@ class MainApp():
             print('ERROR DATA')
 
         if self.temperature_2 > self.Constants.temperature_limit and self.__ventilator_2.Constants.manual_mode == False:
-            vent_2_on = str("e").encode('ascii')
+            vent_2_on = str("g").encode('ascii')
             self.__arduino.write(vent_2_on)
         elif self.temperature_1 > self.Constants.temperature_limit and self.__ventilator_1.Constants.manual_mode == False:
-            vent_1_on = str("f").encode('ascii')
+            vent_1_on = str("e").encode('ascii')
             self.__arduino.write(vent_1_on)
         elif self.__ventilator_1.Constants.manual_mode == False and self.__ventilator_2.Constants.manual_mode == False:
-            value = str(0).encode('ascii')
+            value = str("i").encode('ascii')
             self.__arduino.write(value)
-
 
         self.__main_view.update_text(self.temperature_1, self.temperature_2)
 
@@ -126,7 +125,6 @@ class MainApp():
         self.__id = id
 
     def __toggle_did_change(self, state):
-        print("{} , {}".format(self.__id, state))
         if (self.__id == 1) and (state == True): self.__valor = 1
         if (self.__id == 1) and (state == False): self.__valor = 2
         if (self.__id == 2) and (state == True): self.__valor = 3
@@ -135,7 +133,6 @@ class MainApp():
         if (self.__id == 3) and (state == False): self.__valor = 6
         if (self.__id == 4) and (state == True): self.__valor = 7
         if (self.__id == 4) and (state == False): self.__valor = 8
-        print(self.__valor)
         value = str(self.__valor).encode('ascii')
         self.__arduino.write(value)
 #... hasta acá
