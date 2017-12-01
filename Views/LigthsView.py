@@ -18,8 +18,6 @@ class LightsView(Frame):
         self.__change_view_handler = change_view_handler
 
         self.__toogle_handler = toogle_handler
-        #self.title(self.Constants.title)
-        #self.geometry(self.Constants.size())
 
         self.__configure_grid()
 
