@@ -109,6 +109,7 @@ class MainApp():
         try:
             outside = clean_data[0]
             inside = clean_data[1]
+            print(outside,inside)
             self.__master.sec(outside, inside)
         except:
             pass
