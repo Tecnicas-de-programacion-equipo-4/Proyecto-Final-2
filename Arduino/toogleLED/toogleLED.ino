@@ -79,6 +79,7 @@ void loop() {
   Serial.print(distanceOut);
   Serial.print(",");
   Serial.print(distanceIn);
+  Serial.print(",");
 
   //-----------------------------Temp
   
