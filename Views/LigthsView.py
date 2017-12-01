@@ -4,6 +4,7 @@ from CustomType.View import View
 
 #Este archivo ya no se modifica.
 
+
 class LightsView(Frame):
     class Constants:
         title = "Casa Inteligente"
@@ -21,9 +22,6 @@ class LightsView(Frame):
         self.__change_view_handler = change_view_handler
 
         self.__toogle_handler = toogle_handler
-        #self.title(self.Constants.title)
-        #self.geometry(self.Constants.size())
-
         self.__configure_grid()
 
         self.__bedroom_one_label = Label(self, text="Room\nOne", relief="sunken", bg = "black", fg = "white", font = ("Comic Sans MS",20))
@@ -55,6 +53,7 @@ class LightsView(Frame):
         self.grid_rowconfigure(0, weight=self.Constants.heigth//2)
         self.grid_rowconfigure(1, weight=self.Constants.heigth//2)
         self.grid_rowconfigure(2, weight = self.Constants.heigth // 2)
+
         for column_index in range(4):
             self.grid_columnconfigure(column_index, weight=self.Constants.width//5)
 

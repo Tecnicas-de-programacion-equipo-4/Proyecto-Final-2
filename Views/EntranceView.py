@@ -54,6 +54,7 @@ class Entrance(Frame):
         action = 'b'
         self.__door_action(action)
 
+
     def __did_tap_change_button(self, view):
         if self.__change_view_handler is None:
             return

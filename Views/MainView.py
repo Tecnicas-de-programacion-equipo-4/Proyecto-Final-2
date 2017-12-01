@@ -1,5 +1,4 @@
 from tkinter import Frame, Label, Button, N, S, E, W
-
 from CustomType.View import View
 
 class StartView(Frame):
@@ -16,6 +15,7 @@ class StartView(Frame):
         color = "blue"
         color_font = "white"
         center = N + S + E + W
+
 
     def __init__(self, parent, change_view_hadler = None):
         super().__init__(parent)
@@ -48,6 +48,8 @@ class StartView(Frame):
         button_door = Button(self, font = (self.Constants.font, self.Constants.label_size), text=self.Constants.door, command=lambda: self.__did_tap_change_button(View.Door))
         button_door.grid(row = 4, column =1, sticky = self.Constants.center)
 
+
+
         for v in range(0,2):
             self.rowconfigure(v, weight=True)
             self.columnconfigure(v, weight = True)
@@ -58,6 +60,7 @@ class StartView(Frame):
 
         self.update_text("0","0")
 
+
     def update_text(self, text_1, text_2):
         self.__temperature_label_1.configure(text = text_1, bg = self.Constants.color, fg = self.Constants.color_font)
         self.__temperature_label_2.configure(text=text_2, bg = "red", fg=self.Constants.color_font)
@@ -66,3 +69,4 @@ class StartView(Frame):
         if self.__change_view_hadler is None:
             return
         self.__change_view_hadler(view)
+
