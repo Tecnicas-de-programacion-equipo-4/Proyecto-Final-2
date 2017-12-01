@@ -1,6 +1,5 @@
 from Models.TemperatureControl import TemperatureManager
-from Views.ManualVentilator1View import ViewVentilator1
-from Views.ManualVentilator2View import ViewVentilator2
+from Views.ManualVentilatorView import ViewVentilator
 from Views.ViewContainer import MainView
 from Views.MainView import StartView
 from CustomType.View import View
@@ -22,6 +21,8 @@ class MainApp():
         port = 'COM3'
         protocol_delete = "WM_DELETE_WINDOW"
         temperature_limit = 23.0
+        ventilator_manual_1 = "Manual Control Ventilator 1"
+        ventilator_manual_2 = "Manual Control Ventilator 2"
 
     def __init__(self):
         for port in list_ports.comports(include_links = True):
@@ -29,8 +30,8 @@ class MainApp():
         self.__master = MainView()
 
         self.main_view = StartView(self.__master.container, change_view_hadler=self.__did_change_view)
-        self.ventilator_1 = ViewVentilator1(self.__master.container, change_view_handler=self.__did_change_view, tap_handler = self.__toggle_1_did_change_)
-        self.ventilator_2 = ViewVentilator2(self.__master.container, change_view_handler=self.__did_change_view, tap_handler=self.__toggle_2_did_change_)
+        self.ventilator_1 = ViewVentilator(self.__master.container, change_view_handler=self.__did_change_view,tap_handler=self.__toggle_1_did_change_,text_view=self.Constants.ventilator_manual_1)
+        self.ventilator_2 = ViewVentilator(self.__master.container, change_view_handler=self.__did_change_view,tap_handler=self.__toggle_2_did_change_,text_view=self.Constants.ventilator_manual_2)
 
         self.lights = LightsView(self.__master.container, change_view_handler=self.__did_change_view, toogle_handler=self.__handler_event, tap_handler=self.__toggle_did_change)
         self.alarm = Alarm(self.__master.container, change_view_handler=self.__did_change_view)
@@ -83,28 +84,32 @@ class MainApp():
     def __handle_data(self, data):
         clean_values = data.split(',')
         try:
-            self.value_1 = float(clean_values[0])
-            self.value_2 = float(clean_values[1])
+            self.temperature_1 = float(clean_values[0])
+            self.temperature_2 = float(clean_values[1])
         except Exception:
             print('ERROR DATA')
 
-        if self.value_2 > self.Constants.temperature_limit and self.ventilator_2.Constants.manual_mode == False:
+        if self.temperature_2 > self.Constants.temperature_limit and self.ventilator_2.Constants.manual_mode == False:
             vent_2_value_1 = str(2).encode('ascii')
             self.__arduino.write(vent_2_value_1)
-        elif self.value_1 > self.Constants.temperature_limit and self.ventilator_1.Constants.manual_mode == False:
+        elif self.temperature_1 > self.Constants.temperature_limit and self.ventilator_1.Constants.manual_mode == False:
             vent_1_value_1 = str(1).encode('ascii')
             self.__arduino.write(vent_1_value_1)
         elif self.ventilator_1.Constants.manual_mode == False and self.ventilator_2.Constants.manual_mode == False:
             value = str(0).encode('ascii')
             self.__arduino.write(value)
 
-        self.main_view.update_text(self.value_1, self.value_2)
+        self.main_view.update_text(self.temperature_1, self.temperature_2)
 
 
     def __update_clock(self):
-        data = self.__arduino.readline().decode()
-        self.__handle_data(data)
-        self.__master.after(1, self.__update_clock)
+        try:
+            data = self.__arduino.readline().decode()
+            self.__handle_data(data)
+            self.__master.after(1, self.__update_clock)
+        except UnicodeDecodeError:
+            print('ERROR DATA')
+
 
 
     def __handler_event(self, id):
