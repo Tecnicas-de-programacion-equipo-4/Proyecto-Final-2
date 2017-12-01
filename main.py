@@ -109,8 +109,7 @@ class MainApp():
         try:
             outside = clean_data[0]
             inside = clean_data[1]
-            print(outside,inside)
-            self.__master.sec(outside, inside)
+            self.__alarm.sec(outside, inside)
         except:
             pass
         self.__master.after(1, self.__update_clock)
