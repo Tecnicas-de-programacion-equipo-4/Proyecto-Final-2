@@ -25,7 +25,6 @@ class VentilatorButton(Label):
         if self.__tap_handler is None: return
         self.__tap_handler(self.__state)
 
-
     def __set_image(self, image):
         self.configure(image = image)
         self.image = image

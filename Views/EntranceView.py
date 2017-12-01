@@ -1,7 +1,6 @@
 from tkinter import N, S, E, W, Label, Button, Frame
 from CustomType.View import View
 
-#Este archivo ya no se modifica.
 
 class Entrance(Frame):
     class Constants:
@@ -53,7 +52,6 @@ class Entrance(Frame):
     def __did_tap_close(self, event):
         action = 'b'
         self.__door_action(action)
-
 
     def __did_tap_change_button(self, view):
         if self.__change_view_handler is None:

@@ -27,7 +27,6 @@ class ToggleButton(Label):
         self.__action(self.__room_name)
         self.__tap_handler(self.__state)
 
-
     def __set_image(self, image):
         self.configure(image = image)
         self.image = image

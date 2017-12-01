@@ -2,14 +2,12 @@ from tkinter import  Label, Button, Frame
 from CustomType.View import View
 from Views.Ventilator_Button import VentilatorButton
 
-
 class ViewVentilator(Frame):
     class Constants:
         label_size = 10
         toggle_size = 20
         text_button_back = "Back to Home"
         manual_mode = False
-
 
     def __init__(self, parent, change_view_handler = None, tap_handler = None, text_view = None):
         super().__init__(parent)

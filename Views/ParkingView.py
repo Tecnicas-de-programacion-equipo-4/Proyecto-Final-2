@@ -1,8 +1,6 @@
 from tkinter import N, S, E, W, Label, Button, Frame
 from CustomType.View import View
 
-#Este archivo ya no se modifica.
-
 class Parking(Frame):
     class Constants:
         title = "Control del estacionamiento"

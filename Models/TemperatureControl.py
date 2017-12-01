@@ -7,6 +7,7 @@ class TemperatureManager():
         kelvin_temperature = 273.15
         main_key = "main"
         temperature_key = "temp"
+
     @classmethod
     def get_temperature(cls):
         try:

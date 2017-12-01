@@ -144,7 +144,6 @@ class Alarm(Frame):
                 self.send_noti(0)
                 self.inside_count = -10000
                 self.inside_send = True
-        print(self.inside_count)
         self.current_pos = int(ins)
 
     def sec(self, outs, ins):

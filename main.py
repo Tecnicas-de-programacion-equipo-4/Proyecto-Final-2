@@ -7,16 +7,12 @@ from Views.ParkingView import Parking
 from Views.EntranceView import Entrance
 from CustomType.View import View
 
-
-#Hay que revisar como va a entregar los datos en la version final del arcchivo de arduino para el update
 import serial
 
 
 class MainApp():
 
     class Constants:
-        port = ''
-        protocol_delete = "WM_DELETE_WINDOW"
         temperature_limit = 23.0
         ventilator_manual_1 = "Manual Control Ventilator 1"
         ventilator_manual_2 = "Manual Control Ventilator 2"
@@ -27,11 +23,9 @@ class MainApp():
         self.__ventilator_1 = ViewVentilator(self.__master.container, change_view_handler=self.__did_change_view,tap_handler=self.__toggle_1_did_change_,text_view=self.Constants.ventilator_manual_1)
         self.__ventilator_2 = ViewVentilator(self.__master.container, change_view_handler=self.__did_change_view, tap_handler=self.__toggle_2_did_change_,text_view=self.Constants.ventilator_manual_2)
 
-        #{Este chung ya no se modifica...
         self.__lights = LightsView(self.__master.container, change_view_handler=self.__did_change_view, toogle_handler=self.__handler_event, tap_handler=self.__toggle_did_change)
         self.__parking = Parking(self.__master.container, change_view_handler=self.__did_change_view, parking_action=self.__did_change_servo_position)
         self.__entrance = Entrance(self.__master.container, change_view_handler=self.__did_change_view, door_action=self.__did_change_servo_position)
-#..Hasta acá.}
         self.__alarm = Alarm(self.__master.container, change_view_handler=self.__did_change_view)
 
         self.__arduino = serial.Serial('/dev/cu.usbmodem1411', 115200)
@@ -65,16 +59,11 @@ class MainApp():
 
         self.__arduino.write(vent_1_on)
 
-
-
     def __toggle_2_did_change_(self, state):
         self.__ventilator_2.Constants.manual_mode = True
         vent_2_on = str("g" if state else "h").encode('ascii')
 
         self.__arduino.write(vent_2_on)
-
-
-
 
     def __handle_data(self, data):
         clean_values = data.split(',')
@@ -114,8 +103,6 @@ class MainApp():
             pass
         self.__master.after(1, self.__update_clock)
 
-
-#{Este chung ya no se modifiica...
     def __did_change_servo_position(self, instruction):
         self.__instruction = instruction
         servo_instruction = str(self.__instruction).encode('ascii')
@@ -135,8 +122,6 @@ class MainApp():
         if (self.__id == 4) and (state == False): self.__valor = 8
         value = str(self.__valor).encode('ascii')
         self.__arduino.write(value)
-#... hasta acá
-
 
     def __on_closing(self):
         self.__arduino.close()

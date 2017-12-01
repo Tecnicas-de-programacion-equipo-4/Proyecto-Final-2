@@ -14,8 +14,8 @@ int ventilator_2 = 8;
 
 const int trigOut = 4;
 const int echoOut = 3;
-const int trigIn = 2;
-const int echoIn = 1;
+const int trigIn = 22;
+const int echoIn = 23;
 
 int sensor_temp_1 = A0;
 int sensor_temp_2 = A1;

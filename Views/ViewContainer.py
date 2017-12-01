@@ -19,5 +19,5 @@ class MainView(Tk):
 
     def set_views (self, views):
         for views in views:
-            views.grid(row = 0, column = 0, sticky =  self.Constants.center)
+            views.grid(row=0, column=0, sticky=self.Constants.center)
 
