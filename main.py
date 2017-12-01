@@ -34,7 +34,7 @@ class MainApp():
 #..Hasta acá.}
         self.__alarm = Alarm(self.__master.container, change_view_handler=self.__did_change_view)
 
-        self.__arduino = serial.Serial('/dev/cu.usbmodem1411', 9600)
+        self.__arduino = serial.Serial('/dev/cu.usbmodem1411', 115200)
         self.__master.protocol("WM_DELETE_WINDOW", self.__on_closing)
 
         self.__frames = {

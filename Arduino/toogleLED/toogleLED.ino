@@ -24,7 +24,7 @@ long durationOut, durationIn;
 int distanceOut, distanceIn;
 
 void setup() {
-   Serial.begin(9600);
+   Serial.begin(115200);
    pinMode(roomoneLed, OUTPUT);
    digitalWrite(roomoneLed, LOW);
    pinMode(roomtwoLed, OUTPUT);
@@ -60,7 +60,6 @@ void loop() {
   Serial.print(",");
   Serial.print(celsius_2);
   Serial.println("");
-  
   }
 
 void serialEvent() {
