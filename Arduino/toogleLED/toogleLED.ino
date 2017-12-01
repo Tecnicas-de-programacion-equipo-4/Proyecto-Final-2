@@ -12,10 +12,10 @@ int diningroomLed = 10;
 int ventilator_1 = 9;
 int ventilator_2 = 8;
 
-const int trigOut = 7;
-const int echoOut = 6;
-const int trigIn = 5;
-const int echoIn = 4;
+const int trigOut = 4;
+const int echoOut = 3;
+const int trigIn = 2;
+const int echoIn = 1;
 
 int sensor_temp_1 = A0;
 int sensor_temp_2 = A1;
@@ -24,7 +24,7 @@ long durationOut, durationIn;
 int distanceOut, distanceIn;
 
 void setup() {
-   Serial.begin(115200);
+   Serial.begin(9600);
    pinMode(roomoneLed, OUTPUT);
    digitalWrite(roomoneLed, LOW);
    pinMode(roomtwoLed, OUTPUT);
@@ -102,10 +102,17 @@ void serialEvent() {
   else if (value == 'd'){     //Cierre de garage
     garageServo.write(180);
   }
-  int state_1 = value == 'e' ? HIGH : LOW;  // Encendido ventilador 1
-  digitalWrite(ventilator_1, state_1);
-  
-  int state_2 = value == 'f' ? HIGH : LOW;  //Encendido ventilador 2
-  digitalWrite(ventilator_2, state_2);
+  else if (value == 'e'){
+    digitalWrite(ventilator_1, HIGH);
+  }
+  else if (value == 'f'){
+    digitalWrite(ventilator_1, LOW);
+  }
+  else if (value == 'g'){
+    digitalWrite(ventilator_2, HIGH);
+  }
+  else if (value == 'h'){
+    digitalWrite(ventilator_2, LOW);
+  }
   
 }

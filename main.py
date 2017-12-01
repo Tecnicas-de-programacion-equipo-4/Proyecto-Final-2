@@ -10,7 +10,6 @@ from CustomType.View import View
 
 #Hay que revisar como va a entregar los datos en la version final del arcchivo de arduino para el update
 import serial
-from serial.tools import list_ports
 
 
 class MainApp():
@@ -35,7 +34,7 @@ class MainApp():
 #..Hasta acá.}
         self.__alarm = Alarm(self.__master.container, change_view_handler=self.__did_change_view)
 
-        self.__arduino = serial.Serial('/dev/cu.usbmodem1411', 115200)
+        self.__arduino = serial.Serial('/dev/cu.usbmodem1411', 9600)
         self.__master.protocol("WM_DELETE_WINDOW", self.__on_closing)
 
         self.__frames = {
@@ -62,7 +61,7 @@ class MainApp():
 
     def __toggle_1_did_change_(self, state):
         self.__ventilator_1.Constants.manual_mode = True
-        vent_1_on = str("e" if state else 0).encode('ascii')
+        vent_1_on = str("e" if state else "f").encode('ascii')
 
         self.__arduino.write(vent_1_on)
 
@@ -70,7 +69,7 @@ class MainApp():
 
     def __toggle_2_did_change_(self, state):
         self.__ventilator_2.Constants.manual_mode = True
-        vent_2_on = str("f" if state else 0).encode('ascii')
+        vent_2_on = str("g" if state else "h").encode('ascii')
 
         self.__arduino.write(vent_2_on)
 
