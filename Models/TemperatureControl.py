@@ -3,7 +3,7 @@ import json
 
 class TemperatureManager():
     class Constants:
-        base_url = "http://api.openweathermap.org/data/2.5/weather?q=Coyoacan,MX&APPID={APIKEY}"
+        base_url = "http://api.openweathermap.org/data/2.5/weather?q=Coyoacan,MX&APPID=3da430edb8cb3e68ab0ad0f3719f41d8"
         kelvin_temperature = 273.15
         main_key = "main"
         temperature_key = "temp"
