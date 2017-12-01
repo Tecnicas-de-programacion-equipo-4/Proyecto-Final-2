@@ -51,6 +51,38 @@ void setup() {
 }
 
 void loop() {
+  //Alarm--------
+   digitalWrite(trigIn, LOW);
+  delayMicroseconds(2);
+
+  digitalWrite(trigIn, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigIn, LOW);
+
+  durationIn = pulseIn(echoIn, HIGH);
+
+  digitalWrite(trigOut, LOW);
+  delayMicroseconds(2);
+
+  digitalWrite(trigOut, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigOut, LOW);
+
+  durationOut = pulseIn(echoOut, HIGH);
+
+
+  distanceOut = durationOut * 0.034 / 2;
+  distanceIn = durationIn * 0.034 / 2;
+
+  delay(10);
+  
+  Serial.print(distanceOut);
+  Serial.print(",");
+  Serial.print(distanceIn);
+  Serial.print(",");
+
+  //-----------------------------Temp
+  
   int value_1 = analogRead(sensor_temp_1);
   int value_2 = analogRead(sensor_temp_2);
 
@@ -60,6 +92,8 @@ void loop() {
   Serial.print(",");
   Serial.print(celsius_2);
   Serial.println("");
+  
+  //Serialprint -> dist_out,dist_in,celsius_1,celsius_2\n
   }
 
 void serialEvent() {

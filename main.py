@@ -80,8 +80,8 @@ class MainApp():
         clean_values = data.split(',')
         try:
 
-            self.temperature_1 = float(clean_values[0])
-            self.temperature_2 = float(clean_values[1])
+            self.temperature_1 = float(clean_values[2])
+            self.temperature_2 = float(clean_values[3])
 
         except Exception:
             print('ERROR DATA')
