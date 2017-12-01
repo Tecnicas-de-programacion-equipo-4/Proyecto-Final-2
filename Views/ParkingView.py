@@ -22,9 +22,9 @@ class Parking(Frame):
 
         self.__change_view_handler = change_view_handler
 
-        button1 = Button(self, text=self.Constants.text_button_back,
+        back_button = Button(self, text=self.Constants.text_button_back,
                          command=lambda: self.__did_tap_change_button(View.Main_View,),font=("Comic Sans MS", 18))
-        button1.grid(row = 3)
+        back_button.grid(row = 3)
 
         self.__parking_action = parking_action
         self.__configure_grid()
@@ -55,6 +55,7 @@ class Parking(Frame):
     def __did_tap_close(self, event):
         action = 'd'
         self.__parking_action(action)
+
 
     def __did_tap_change_button(self, view):
         if self.__change_view_handler is None:

@@ -1,11 +1,14 @@
 from tkinter import  N, S, E, W, Label, Button, Frame
 from CustomType.View import View
+
 from smtplib import SMTP
 from Views.correo import send_email, send_password, reciever
+
 
 class Alarm(Frame):
     class Constants:
         text_button_back = "Back to Home"
+
         title = "Security"
         height = 520
         width = 750
@@ -15,10 +18,12 @@ class Alarm(Frame):
         def size(cls):
             return "{}x{}".format(cls.width, cls.height)
 
+
     def __init__(self, parent, change_view_handler=None):
         super().__init__(parent)
 
         self.__change_view_handler = change_view_handler
+
 
         self.is_active = False
         self.current_pos = 0
@@ -49,14 +54,16 @@ class Alarm(Frame):
             self.rowconfigure(v, weight=True)
             self.columnconfigure(v, weight=True)
 
-        button1 = Button(self, bg = "red", fg = "white", text=self.Constants.text_button_back, command=lambda: self.__did_tap_change_button(View.Main_View))
-        button1.grid(row = 5, columnspan = 2, sticky = self.Constants.center)
+        back_button = Button(self, bg = "red", fg = "white", text=self.Constants.text_button_back, command=lambda: self.__did_tap_change_button(View.Main_View))
+        back_button.grid(row = 5, columnspan = 2, sticky = self.Constants.center)
+
 
     def __did_tap_change_button(self, view):
         if self.__change_view_handler is None:
             return
         self.__change_view_handler(view)
         self.Constants.manual_mode = False
+
 
     def act(self):
         self.__top_text.config(text="Active", bg="#000099")
@@ -146,3 +153,4 @@ class Alarm(Frame):
         else:
             self.manage_outside(outs)
             self.manage_inside(ins)
+
